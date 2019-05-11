@@ -6,14 +6,7 @@ package selenium;
  * and open the template in the editor.
  */
 import Entities.User;
-import java.util.ArrayList;
-import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

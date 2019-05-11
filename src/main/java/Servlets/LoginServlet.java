@@ -41,12 +41,10 @@ public class LoginServlet extends HttpServlet {
         list.add(new User("Student", "Hallur", "123"));
         list.add(new User("Teacher", "Kasper", "321"));
         list.add(new User("Admin", "John", "321"));
-        String test = "hej";
 
         try {
             String usernameInput = request.getParameter("un");
             String passwordInput = request.getParameter("pw");
-            //HttpSession session = request.getSession();
             for (User user : list) {
                 if (user.getUserName().equals(usernameInput) && user.getPassword().equals(passwordInput)) {
                     HttpSession session = request.getSession();
@@ -57,15 +55,13 @@ public class LoginServlet extends HttpServlet {
                         return;
                     }
                     if (user.getRole().equals("Student")) {
-                        //HttpSession session = request.getSession(true);       
                         response.sendRedirect("studentPage.jsp");
                         return;
                     }
                     if (user.getRole().equals("Admin")) {
-                        //HttpSession session = request.getSession(true);       
                         response.sendRedirect("adminPage.jsp");
                         return;
-                    } 
+                    }
                 } else {
                     response.sendRedirect("invalidLogin.jsp"); //error page 
                     return;

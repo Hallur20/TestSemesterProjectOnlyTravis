@@ -13,7 +13,8 @@ import java.sql.*;
  */
 public class DeleteLater {
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ClassNotFoundException, SQLException {
 
+        new CourseMapper().getCourses();
     }
 }

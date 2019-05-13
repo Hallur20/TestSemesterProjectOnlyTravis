@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Course</title>
     </head>
     <body>
         <form>
@@ -16,12 +16,12 @@
             %>
             <div class="form-group">
                 <label for="exampleInputEmail1">Name</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value=<%= course.getSubject().getName()%>>
+                <input type="text" class="form-control" id="name" placeholder="Enter name" value=<%= course.getSubject().getName()%>>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         <form action="CourseServlet">
-            <button type="submit" class="btn btn-outline-danger">Delete</button>
+            <button id="delete" type="submit" class="btn btn-outline-danger">Delete</button>
         </form>
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

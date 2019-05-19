@@ -19,7 +19,7 @@ public class LogicForLogin {
 
         //User user = lm.getUser(userName);
         if (role.equals("Teacher")) {
-            return "teacherPage.jsp";
+            return "/TestSemesterProject/TeacherServlet";
 
         }
         if (role.equals("Student")) {

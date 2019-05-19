@@ -18,7 +18,7 @@
         <button id="planBtn">see planning period</button>
         <h1 id="here"></h1>
          <center>
-            
+             <h1>username: ${teacher.name} , day: ${teacher.currentDate} , semester start: ${teacher.semester.startDate}</h1>
      <h3>Welcome ${sessionScope.currentSessionUser }</h3>		
          </center>
     teacherDate<input id='tDate'>semesterStart</input><input id='sDate'>deadline in days</input><input id='days'></input>

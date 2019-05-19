@@ -20,7 +20,8 @@ public class Teacher extends User implements TeacherFunctions {
         this.lastActive = lastActive;
     }
 
-    public Teacher(Semester semester, LocalDate currentDate) {
+    public Teacher(String name, Semester semester, LocalDate currentDate) {
+        this.name = name;
         this.semester = semester;
         this.currentDate = currentDate;
     }
@@ -87,5 +88,12 @@ public class Teacher extends User implements TeacherFunctions {
     public int daysUntilDeadLine(LocalDate teacherDate, LocalDate semesterDate) {
         return 0; //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" + "id=" + id + ", name=" + name + ", education=" + education + ", semester=" + semester + ", lastActive=" + lastActive + ", currentDate=" + currentDate + '}';
+    }
+    
+    
 
 }

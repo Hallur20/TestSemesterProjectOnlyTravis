@@ -86,6 +86,37 @@ public class PlanningMapper {
         }
     }
 
+    public Teacher getTeacher(String userName) {
+        Teacher teacher = null;
+        try {
+            dbc.open();
+            String sql = "select currentDate as tDate, userName as uName, startDate as sDate,name as sName from Teacher inner join User on Teacher.userId = User.id inner join Semester on Teacher.semesterId = Semester.id where User.userName = ?;";
+            PreparedStatement pstmt = dbc.preparedStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, userName);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                //String name, Semester semester, LocalDate currentDate
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate sDate = LocalDate.parse(rs.getString("sDate"), formatter);
+                LocalDate tDate = LocalDate.parse(rs.getString("tDate"), formatter);
+                teacher = new Teacher(rs.getString("uName"), new Semester(sDate,
+                        rs.getString("sName")), tDate
+                );
+               
+
+            }
+        } catch (SQLException ex) {
+ ex.printStackTrace();
+        } finally {
+dbc.close();
+        }
+        return teacher;
+    }
+    public static void main(String[] args) {
+        PlanningMapper pm = new PlanningMapper();
+        pm.setDataSource(new DataSource1().getDataSource());
+        System.out.println(pm.getTeacher("Kasper").toString());
+    }
     public void insertTeacher(Teacher teacher, int userId, int semesterId) {
         try {
             dbc.open();
@@ -146,17 +177,18 @@ public class PlanningMapper {
             String sql = "select currentDate from Teacher";
             PreparedStatement pstmt = dbc.preparedStatement(sql);
             ResultSet r = pstmt.executeQuery();
-            if(r.next()){
+            if (r.next()) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 date = LocalDate.parse(r.getString("currentDate"), formatter);
             }
-            
+
             pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
             dbc.close();
-        } return date;
+        }
+        return date;
     }
 
     public LocalDate getSemesterDate() {
@@ -168,16 +200,17 @@ public class PlanningMapper {
             String sql = "select name from Semester";
             PreparedStatement pstmt = dbc.preparedStatement(sql);
             ResultSet r = pstmt.executeQuery();
-            if(r.next()){
+            if (r.next()) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 date = LocalDate.parse(r.getString("name"), formatter);
             }
-            
+
             pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
             dbc.close();
-        } return date;
+        }
+        return date;
     }
 }

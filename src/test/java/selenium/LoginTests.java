@@ -39,11 +39,12 @@ public class LoginTests {
 
     @Test
     public void teacherPage() {
-        User teacher = new User("Teacher", "Kasper", "321");
+        User teacher = new User("Teacher", "Kasper", "123");
         driver = new ChromeDriver();
         driver.get("http://localhost:8080/TestSemesterProject/");
         driver.findElement(By.name("un")).sendKeys(teacher.getUserName());
         driver.findElement(By.name("pw")).sendKeys(teacher.getPassword());
+        driver.findElement(By.id("test")).click();
         driver.findElement(By.name("sub")).click();
         String userRole = driver.findElement(By.name("user")).getText();
         assertThat(userRole, is(teacher.getRole()));
@@ -57,6 +58,7 @@ public class LoginTests {
         driver.get("http://localhost:8080/TestSemesterProject/");
         driver.findElement(By.name("un")).sendKeys(student.getUserName());
         driver.findElement(By.name("pw")).sendKeys(student.getPassword());
+        driver.findElement(By.id("test")).click();
         driver.findElement(By.name("sub")).click();
         String userRole = driver.findElement(By.name("user")).getText();
         assertThat(userRole, is(student.getRole()));
@@ -70,6 +72,7 @@ public class LoginTests {
         driver.get("http://localhost:8080/TestSemesterProject/");
         driver.findElement(By.name("un")).sendKeys(admin.getUserName());
         driver.findElement(By.name("pw")).sendKeys(admin.getPassword());
+        driver.findElement(By.id("test")).click();
         driver.findElement(By.name("sub")).click();
         String userRole = driver.findElement(By.name("user")).getText();
         assertThat(userRole, is(admin.getRole()));

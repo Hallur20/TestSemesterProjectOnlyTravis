@@ -73,8 +73,9 @@ public class LogSelTest {
         List<WebElement> rows = driver.findElements(By.tagName("input"));
         rows.get(0).sendKeys(user.getUserName());
         rows.get(1).sendKeys(user.getPassword());
+        rows.get(3).click();
         //Thread.sleep(1000);
-        rows.get(2).click();
+        rows.get(4).click();
         pageHeader = driver.findElement(By.name("user")).getText();
         System.out.println("11111111111111111doiwjdiojiodjaiodjoidjoiwjdoijwdo111"+pageHeader);
         Thread.sleep(1000);

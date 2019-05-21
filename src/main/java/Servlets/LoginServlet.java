@@ -3,8 +3,10 @@ package Servlets;
 import Entities.User;
 import com.thoughtworks.selenium.Selenium;
 import database.DataSource1;
+import database.DataSourceTest;
 import database.LogicForLogin;
 import database.LoginMapper;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -37,22 +39,28 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {;
-      
-        LoginMapper lm = new LoginMapper();
-         // System.out.println("bool is: " + lm.areWeTesting);
-        lm.setDataSource(new DataSource1().getDataSource());
-        boolean susuccessfulLogin;
-        
+
         try {
-            //System.out.println("hello world?: " + lm.areWeTesting);
             String usernameInput = request.getParameter("un");
             String passwordInput = request.getParameter("pw");
+            String testOrProduction = request.getParameter("dbPick");
+            LoginMapper lm = new LoginMapper();
+            System.out.println(testOrProduction);
+            if (testOrProduction.equals("production")) {
+                lm.setDataSource(new DataSource1().getDataSource());
+            }
+            if(testOrProduction.equals("test")){
+                lm.setDataSource(new DataSourceTest().getDataSource());
+            }
+
+            boolean susuccessfulLogin;
             susuccessfulLogin = lm.checkUser(usernameInput, passwordInput);
             if (susuccessfulLogin == true) {
                 User user = lm.getUser(usernameInput, passwordInput);
                 HttpSession session = request.getSession();
                 session.setAttribute("currentSessionUser", usernameInput);
                 session.setAttribute("userRole", user.getRole());
+                session.setAttribute("dbPick", testOrProduction);
                 LogicForLogin lge = new LogicForLogin();
                 String role = lge.Login(user.getRole());
                 response.sendRedirect(role);
@@ -63,4 +71,5 @@ public class LoginServlet extends HttpServlet {
             System.out.println(theException);
         }
     }
+
 }

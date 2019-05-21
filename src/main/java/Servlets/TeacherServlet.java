@@ -7,6 +7,7 @@ package Servlets;
 
 import Entities.Teacher;
 import database.DataSource1;
+import database.DataSourceTest;
 import database.PlanningMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,8 +43,14 @@ public class TeacherServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        String dbPick = (String) session.getAttribute("dbPick");
         PlanningMapper pm = new PlanningMapper();
+        if(dbPick.equals("production")){
         pm.setDataSource(new DataSource1().getDataSource());
+        }
+        if(dbPick.equals("test")){
+        pm.setDataSource(new DataSourceTest().getDataSource());
+        }
         Teacher teacher = pm.getTeacher((String) session.getAttribute("currentSessionUser"));
         LocalDate semesterDeadline = teacher.getSemester().getStartDate().minusMonths(1);
         int deadlineDays = (int) DAYS.between(teacher.getCurrentDate(), semesterDeadline);

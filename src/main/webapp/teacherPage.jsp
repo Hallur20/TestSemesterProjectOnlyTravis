@@ -18,7 +18,7 @@
         </style>
     </head>
     <body>
-        <h1>this is the teacher page for: ${teacher.name}</h1>
+        <h1>this is the <span name="user">Teacher</span> page for: ${teacher.name}</h1>
         <h2>information on your planning period for next semester is shown below</h2>
         <p>today is: <div id="tDate">${teacher.currentDate}</div></p>
     <p>semester starts at: <div id="sDate">${teacher.semester.startDate}</div></p>
@@ -29,7 +29,7 @@
     <h1>username: ${teacher.name} , day: ${teacher.currentDate} , semester start: ${teacher.semester.startDate}</h1>
     <h3>Welcome ${sessionScope.currentSessionUser }</h3>deadline: ${deadline}		
 </center>
-teacherDate<input id='tDate'>semesterStart</input><input id='sDate'>deadline in days</input><input id='days'></input>
+teacherDate<input id='tDate2'>semesterStart</input><input id='sDate2'>deadline in days</input><input id='days'></input>
 <script>
     document.getElementById("planBtn").onclick = () => {
     document.getElementById("here").innerHTML = "you clicked...";

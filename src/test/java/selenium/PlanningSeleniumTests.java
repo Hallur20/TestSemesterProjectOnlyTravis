@@ -7,6 +7,8 @@ import cucumber.api.java.en.When;
 import cucumber.api.java.en_old.Ða;
 import database.DataSourceTest;
 import database.LoginMapper;
+
+import static database.Example.a;
 import database.TestDatabaseMapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +46,6 @@ public class PlanningSeleniumTests {
     WebDriver driver;
     private LocalDate teacherDate;
     private LocalDate semesterDate;
-    
 
     @Given("^the teacher-date (.*?)$")
     public void navigatePage(String strDate) throws ParseException, InterruptedException {
@@ -60,11 +61,6 @@ public class PlanningSeleniumTests {
 
     @When("^the teacher logs in$")
     public void bla() throws InterruptedException {
-        TestDatabaseMapper tdm = new TestDatabaseMapper();
-        tdm.createTestDatabase();
-        tdm.setDataSource(new DataSourceTest().getDataSource());
-        tdm.createTestDatabase();
-        LoginMapper.areWeTesting = true;
         if (System.getProperty("os.name").startsWith("Linux")) {
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver");
         } else if (System.getProperty("os.name").startsWith("Windows")) {
@@ -76,11 +72,11 @@ public class PlanningSeleniumTests {
         rows.get(0).sendKeys("Kasper");
         rows.get(1).sendKeys("123");
         Thread.sleep(1000);
-        rows.get(2).click();
-
+        rows.get(3).click();
+        rows.get(4).click();
         Thread.sleep(1000);
-        driver.findElement(By.id("tDate")).sendKeys("test");
-        driver.findElement(By.id("sDate")).sendKeys(semesterDate.toString());
+        driver.findElement(By.id("tDate2")).sendKeys(teacherDate.toString());
+        driver.findElement(By.id("sDate2")).sendKeys(semesterDate.toString());
     }
 
     @Then("the days difference should be {int}")

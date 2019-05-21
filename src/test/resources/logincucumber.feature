@@ -10,5 +10,5 @@ Then the page header should be <output>
 Examples:
 |user     |password   |role     |output |
 |Hallur   |123        |Student  |Student|
-|Kasper   |321        |Teacher  |Teacher|
+|Kasper   |123        |Teacher  |Teacher|
 |Mo       |1234       |Admin    |Admin  |

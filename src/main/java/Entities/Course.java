@@ -10,6 +10,9 @@ public class Course {
     private Teacher teacher;
     private List<Student> students;
 
+    public Course() {
+    }
+
     public Course(int id, Subject subject, Teacher teacher) {
         this.id = id;
         this.subject = subject;

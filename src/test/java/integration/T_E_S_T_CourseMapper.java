@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces;
-
-import java.sql.Connection;
+package integration;
 
 /**
  *
- * @author hallur
+ * @author Zaeem
  */
-public interface IntegrationFunctions {
-    Connection getConnection();
+public class T_E_S_T_CourseMapper {
+    
 }

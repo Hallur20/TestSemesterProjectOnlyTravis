@@ -20,10 +20,11 @@ public class DataSourceMysql {
             dataSource.setServerName("localhost");
             dataSource.setPort(3306);
             dataSource.setDatabaseName("LESdb?allowPublicKeyRetrieval=true&useSSL=false");
-            dataSource.setUser("root");
-            dataSource.setPassword("123");
+            dataSource.setUser("user");
+            dataSource.setPassword("1234");
             dataSource.setUseSSL(false);
             dataSource.setAllowMultiQueries(true);
+            dataSource.setServerTimezone("UTC");
         } catch (Exception e) {
             e.printStackTrace();
         }

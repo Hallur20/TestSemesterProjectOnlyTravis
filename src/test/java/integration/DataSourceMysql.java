@@ -22,7 +22,7 @@ public class DataSourceMysql {
             dataSource.setPort(3306);
             dataSource.setDatabaseName("LESdb?allowPublicKeyRetrieval=true&useSSL=false");
             dataSource.setUser("root");
-            dataSource.setPassword("123");
+            dataSource.setPassword("root");
             dataSource.setUseSSL(false);
             dataSource.setAllowMultiQueries(true);
         }

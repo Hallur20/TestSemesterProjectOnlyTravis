@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces;
+package database;
 
-import java.sql.Connection;
+import java.sql.*;
 
 /**
  *
  * @author hallur
  */
-public interface IntegrationFunctions {
-    Connection getConnection();
+public class DeleteLater {
+
+    public static void main(String args[]) throws ClassNotFoundException, SQLException {
+
+        new CourseMapper().getCourses();
+    }
 }

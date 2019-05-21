@@ -1,17 +1,25 @@
-package data;
+package database;
 
 import Entities.Category;
 import Entities.Course;
 import Entities.Subject;
 import Entities.Teacher;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
 
 public class CourseMapper {
+
+    private DatabaseConnector dbc = new DatabaseConnector();
+
+    public void setDataSource(DataSource ds) {
+        dbc.setDataSource(ds);
+    }
 
     public List<Course> courses = new ArrayList();
 
@@ -25,28 +33,41 @@ public class CourseMapper {
     public List<Course> getCourses() throws ClassNotFoundException, SQLException {
         List<Course> courses = new ArrayList();
 
-        Connection conn = Conn.getConnection();
-        Statement stmt = conn.createStatement();
-        String sql = "SELECT * FROM course";
-        ResultSet resultSet = stmt.executeQuery(sql);
+        try {
+            dbc.open();
 
-        while (resultSet.next()) {
-            Course course = new Course();
+            String sql = "SELECT * FROM course";
 
-            int id = resultSet.getInt("id");
-            int teacherId = resultSet.getInt("teacherId");
-            int semesterId = resultSet.getInt("semesterId");
-            int subjectId = resultSet.getInt("subjectId");
-            String name = resultSet.getString("name");
+            PreparedStatement pstmt = dbc.preparedStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
 
-            course.setId(id);
+            while (rs.next()) {
+                Course course = new Course();
 
-            courses.add(course);
-        }
-        for (Course course : courses) {
-            System.out.println(course.getId());
+                int id = rs.getInt("id");
+                int teacherId = rs.getInt("teacherId");
+                int semesterId = rs.getInt("semesterId");
+                int subjectId = rs.getInt("subjectId");
+                String name = rs.getString("name");
+
+                course.setId(id);
+
+                courses.add(course);
+
+            }
+            for (Course course : courses) {
+                System.out.println(course.getId());
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            dbc.close();
         }
         return courses;
+
     }
 
     public void deleteCourse(int id) {

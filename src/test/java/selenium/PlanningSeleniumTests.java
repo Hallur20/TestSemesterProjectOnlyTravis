@@ -1,9 +1,13 @@
 package selenium;
 
+import Servlets.LoginServlet;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en_old.Ða;
+import database.DataSourceTest;
+import database.LoginMapper;
+import database.TestDatabaseMapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -40,6 +44,7 @@ public class PlanningSeleniumTests {
     WebDriver driver;
     private LocalDate teacherDate;
     private LocalDate semesterDate;
+    
 
     @Given("^the teacher-date (.*?)$")
     public void navigatePage(String strDate) throws ParseException, InterruptedException {
@@ -55,6 +60,11 @@ public class PlanningSeleniumTests {
 
     @When("^the teacher logs in$")
     public void bla() throws InterruptedException {
+        TestDatabaseMapper tdm = new TestDatabaseMapper();
+        tdm.createTestDatabase();
+        tdm.setDataSource(new DataSourceTest().getDataSource());
+        tdm.createTestDatabase();
+        LoginMapper.areWeTesting = true;
         if (System.getProperty("os.name").startsWith("Linux")) {
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver");
         } else if (System.getProperty("os.name").startsWith("Windows")) {
@@ -64,12 +74,12 @@ public class PlanningSeleniumTests {
         driver.get("http://localhost:8080/TestSemesterProject/");
         List<WebElement> rows = driver.findElements(By.tagName("input"));
         rows.get(0).sendKeys("Kasper");
-        rows.get(1).sendKeys("321");
+        rows.get(1).sendKeys("123");
         Thread.sleep(1000);
         rows.get(2).click();
-        driver.findElement(By.id("planBtn")).click();
+
         Thread.sleep(1000);
-        driver.findElement(By.id("tDate")).sendKeys(teacherDate.toString());
+        driver.findElement(By.id("tDate")).sendKeys("test");
         driver.findElement(By.id("sDate")).sendKeys(semesterDate.toString());
     }
 
@@ -80,6 +90,6 @@ public class PlanningSeleniumTests {
         int days = (int) DAYS.between(teacherDate, semesterDate);
         System.out.println("days: " + days);
         assertThat(30, is(days));
-        driver.findElement(By.id("days")).sendKeys("" +days);
+        driver.findElement(By.id("days")).sendKeys("" + days);
     }
 }

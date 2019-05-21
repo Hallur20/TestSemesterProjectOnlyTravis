@@ -18,10 +18,15 @@ import javax.sql.DataSource;
  */
 public class LoginMapper {
 
+    public static boolean areWeTesting = false;
+
     private DatabaseConnector dbc = new DatabaseConnector();
+    
 
     public void setDataSource(DataSource ds) {
-        dbc.setDataSource(ds);
+
+            dbc.setDataSource(ds);
+
     }
 
     public boolean checkUser(String userName, String password) throws SQLException {

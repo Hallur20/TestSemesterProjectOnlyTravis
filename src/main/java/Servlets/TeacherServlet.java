@@ -10,6 +10,9 @@ import database.DataSource1;
 import database.PlanningMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 /**
  *
@@ -41,8 +45,11 @@ public class TeacherServlet extends HttpServlet {
         PlanningMapper pm = new PlanningMapper();
         pm.setDataSource(new DataSource1().getDataSource());
         Teacher teacher = pm.getTeacher((String) session.getAttribute("currentSessionUser"));
-        System.out.println("yoooo......." + teacher.toString());
+        LocalDate semesterDeadline = teacher.getSemester().getStartDate().minusMonths(1);
+        int deadlineDays = (int) DAYS.between(teacher.getCurrentDate(), semesterDeadline);
         request.setAttribute("teacher", teacher);
+        request.setAttribute("deadline", semesterDeadline);
+        request.setAttribute("deadlineDays", deadlineDays);
         RequestDispatcher rd = request.getRequestDispatcher("teacherPage.jsp");
         rd.forward(request, response);
     }

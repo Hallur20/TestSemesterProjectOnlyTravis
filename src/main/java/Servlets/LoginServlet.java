@@ -1,6 +1,7 @@
 package Servlets;
 
 import Entities.User;
+import com.thoughtworks.selenium.Selenium;
 import database.DataSource1;
 import database.LogicForLogin;
 import database.LoginMapper;
@@ -36,10 +37,14 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {;
+      
         LoginMapper lm = new LoginMapper();
+         // System.out.println("bool is: " + lm.areWeTesting);
         lm.setDataSource(new DataSource1().getDataSource());
         boolean susuccessfulLogin;
+        
         try {
+            //System.out.println("hello world?: " + lm.areWeTesting);
             String usernameInput = request.getParameter("un");
             String passwordInput = request.getParameter("pw");
             susuccessfulLogin = lm.checkUser(usernameInput, passwordInput);

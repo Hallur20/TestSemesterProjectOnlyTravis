@@ -126,4 +126,4 @@ insert into Student(userId,courseId,age,hasPaid)values(10,2, 13,true);
 insert into Student(userId,courseId,age,hasPaid)values(11,2, 32,false);
 insert into Student(userId,courseId,age,hasPaid)values(12,2, 41,true);
 
-insert into Admin(userId)values(13);drop schema if exists LESdb;
+insert into Admin(userId)values(13);
